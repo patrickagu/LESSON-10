@@ -18,56 +18,59 @@ async function populate() {
     // STEP 8: Output the iScream JSON object to the console 
     console.log(iScream);
     // STEP 9a: Invoke the populateHeader function here, then build it below
-populateHeader(iScream);
-showTopFlavors(iScream);
+    populateHeader(iScream);
+    showTopFlavors(iScream);
 }
-populate();
-    // step9b- build out the populateHeader() function
-    function populateHeader(jsonObj) {
-        // Create the H1 element 
-        const headerH1 = document.createElement('h1');
-        
-        // Grab the company name from the JSON object and use it for the text node
-        headerH1.textContent = jsonObj.companyName;
-    }
-    // STEP 10a: Invoke the showTopFlavors function here, then build it below
-    function showTopFlavors(jsonObj) {
-        // STEP 10c: Attache the JSON topFlavors object to a variable
-        let topFlavors = jsonObj.topFlavors;
-        // STEP 10d: Loop through the topFlavors object
-        for (let i = 0; i < topFlavors.length; i ++) {
-            // STEP 10e: build HTML elements for the content
-            let article = document.createElement('article');
-            let h2 = document.createElement('h2');
-            let img = document.createElement('img');
-            let ul = document.createElement('ul');
 
+populate();
+
+// step9b- build out the populateHeader() function
+function populateHeader(jsonObj) {
+    // Create the H1 element 
+    const headerH1 = document.createElement('h1');
+    
+    // Grab the company name from the JSON object and use it for the text node
+    headerH1.textContent = jsonObj.companyName;
+    
+    // FIX: Append the H1 to the header
+    header.appendChild(headerH1);
+}
+
+// STEP 10a: Invoke the showTopFlavors function here, then build it below
+function showTopFlavors(jsonObj) {
+    // STEP 10c: Attache the JSON topFlavors object to a variable
+    let topFlavors = jsonObj.topFlavors;
+    // STEP 10d: Loop through the topFlavors object
+    for (let i = 0; i < topFlavors.length; i++) {
+        // STEP 10e: build HTML elements for the content
+        let article = document.createElement('article');
+        let h2 = document.createElement('h2');
+        let img = document.createElement('img');
+        let ul = document.createElement('ul');
 
         // STEP 10f: Set the textContent property for each of the above elements (except the UL), based on the JSON content
-            h2.textContent = topFlavors[i].name;        
-            img.setAttribute('src', 'https://patrickagu.github.io/LESSON-10/images/' + topFlavors[i].image); 
+        h2.textContent = topFlavors[i].name;        
+        img.setAttribute('src', 'https://patrickagu.github.io/LESSON-10/images/' + topFlavors[i].image);
+        img.setAttribute('alt', topFlavors[i].name);
         // to use local folder, use ./images/ instead of the full URL above
 
         // STEP 10g: Build a loop for the ingredients array in the JSON
         let ingredients = topFlavors[i].ingredients;
-        for(j = 0; j < ingredients.length; ingredients++) {
+        // FIX: Changed j++ instead of ingredients++
+        for(let j = 0; j < ingredients.length; j++) {
             // add the ingredient to the UL
             let listItem = document.createElement('li');
             listItem.textContent = ingredients[j];
             ul.appendChild(listItem);
         }
+        
         // STEP 10h: Append each of the above HTML elements to the ARTICLE element
         article.appendChild(h2);
         article.appendChild(img);
         article.appendChild(ul);
+        
         // STEP 10i: Append each complete ARTICLE element to the SECTION element
-        section
-    };
-};
-// STEP 11: The instructor will edit the JSON file - refresh your page to see the updated content
-
-// STEP 12: Change the URL in STEP 3 to point to the JSON file in the local /js folder in order to prepare for today's lab
-
-// This page inspired by and adapted from https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON
-
-// A special thanks to https://openclipart.org/detail/285225/ice-cream-cones for the awesome ice cream cone illustrations
+        // FIX: Added the missing appendChild
+        section.appendChild(article);
+    }
+}
