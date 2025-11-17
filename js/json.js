@@ -17,9 +17,9 @@ async function populate() {
     console.log(iScream);
     // STEP 9a: Invoke the populateHeader function here, then build it below
 populateHeader(iScream);
+showTopFlavors(iScream);
 }
-    populate();
-    showTopFlavors(iScream);
+populate();
     // step9b- build out the populateHeader() function
     function populateHeader(jsonObj) {
         // Create the H1 element 
@@ -44,6 +44,7 @@ populateHeader(iScream);
         // STEP 10f: Set the textContent property for each of the above elements (except the UL), based on the JSON content
             h2.textContent = topFlavors[i].name;        
             img.setAttribute('src', 'https://patrickagu.github.io/LESSON-10/images/' + topFlavors[i].image); 
+        // to use local folder, use ./images/ instead of the full URL above
 
         // STEP 10g: Build a loop for the ingredients array in the JSON
         let ingredients = topFlavors[i].ingredients;
